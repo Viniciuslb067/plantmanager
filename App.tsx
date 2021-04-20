@@ -1,21 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { Welcome } from "./src/pages/Welcome";
+import AppLoading from "expo-app-loading";
+import {
+  useFonts,
+  Jost_400Regular,
+  Jost_600SemiBold,
+} from "@expo-google-fonts/jost";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const [fonstLoaded] = useFonts({
+    Jost_400Regular,
+    Jost_600SemiBold,
+  });
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  if (!fonstLoaded) {
+    return <AppLoading />;
+  }
+
+  return <Welcome />;
+}
