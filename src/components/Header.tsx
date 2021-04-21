@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, Image, View } from "react-native";
-import { getStatusBarHeight } from "react-native-iphone-x-helper"
+import { getStatusBarHeight } from "react-native-iphone-x-helper";
 
 import userImg from "../assets/vinicius.jpg";
 import colors from "../styles/colors";
@@ -14,10 +14,9 @@ export function Header() {
         <Text style={styles.userName}>Vinicius</Text>
       </View>
 
-      <Image source={userImg} style={styles.image}/>
-
+      <Image source={userImg} style={styles.image} />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -28,7 +27,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 20,
     marginTop: getStatusBarHeight(),
-    padding: 20,
   },
   image: {
     width: 75,
@@ -44,5 +42,5 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontFamily: fonts.heading,
     lineHeight: 40,
-  }
-})
+  },
+});
