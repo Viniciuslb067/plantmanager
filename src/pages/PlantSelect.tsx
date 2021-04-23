@@ -43,7 +43,7 @@ export function PlantSelect() {
   const [loading, setLoading] = useState(true);
 
   const [page, setPage] = useState(1);
-  const [loadingMore, setLoadingMore] = useState(false);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [loadedAll, setLoadedAll] = useState(false);
 
   function handleEnviromentSelected(enviroment: string) {
@@ -72,13 +72,13 @@ export function PlantSelect() {
     }
 
     setLoading(false);
-    setLoadingMore(false);
+    setIsLoadingMore(false);
   }
 
   function handleGetMore(distance: number) {
     if (distance < 1) return;
-    setLoadingMore(true);
-    setPage((oldValue) => oldValue + 1);
+    setIsLoadingMore(true);
+    setPage(oldValue => oldValue + 1);
     getPlants();
   }
 
@@ -137,9 +137,7 @@ export function PlantSelect() {
           numColumns={2}
           onEndReachedThreshold={0.1}
           onEndReached={({ distanceFromEnd }) => handleGetMore(distanceFromEnd)}
-          ListFooterComponent={
-            loadingMore ? <ActivityIndicator color={colors.green} /> : <> </>
-          }
+          ListFooterComponent={isLoadingMore ? <ActivityIndicator color='#2B7A4B' /> : <></>}
         />
       </View>
     </View>
