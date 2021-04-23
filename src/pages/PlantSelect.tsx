@@ -16,6 +16,7 @@ import colors from "../styles/colors";
 import fonts from "../styles/fonts";
 
 import api from "../services/api";
+import { useNavigation } from "@react-navigation/native";
 
 interface EnviromentProps {
   key: string;
@@ -44,7 +45,8 @@ export function PlantSelect() {
 
   const [page, setPage] = useState(1);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const [loadedAll, setLoadedAll] = useState(false);
+
+  const navigation = useNavigation();
 
   function handleEnviromentSelected(enviroment: string) {
     setEnviromentSelected(enviroment);
@@ -78,8 +80,12 @@ export function PlantSelect() {
   function handleGetMore(distance: number) {
     if (distance < 1) return;
     setIsLoadingMore(true);
-    setPage(oldValue => oldValue + 1);
+    setPage((oldValue) => oldValue + 1);
     getPlants();
+  }
+
+  function handlePlantSelect(plant: PlantProps) {
+    navigation.navigate('PlantSave', { plant })
   }
 
   useEffect(() => {
@@ -116,6 +122,7 @@ export function PlantSelect() {
       <View>
         <FlatList
           data={enviroments}
+          keyExtractor={(item) => String(item.key)}
           renderItem={({ item }) => (
             <EnviromentButton
               title={item.title}
@@ -132,12 +139,20 @@ export function PlantSelect() {
       <View style={styles.plants}>
         <FlatList
           data={filteredPlants}
-          renderItem={({ item }) => <PlantCardPrimary data={item} />}
+          keyExtractor={(item) => String(item.id)}
+          renderItem={({ item }) => (
+            <PlantCardPrimary
+              data={item}
+              onPress={() => handlePlantSelect(item)}
+            />
+          )}
           showsVerticalScrollIndicator={false}
           numColumns={2}
           onEndReachedThreshold={0.1}
           onEndReached={({ distanceFromEnd }) => handleGetMore(distanceFromEnd)}
-          ListFooterComponent={isLoadingMore ? <ActivityIndicator color='#2B7A4B' /> : <></>}
+          ListFooterComponent={
+            isLoadingMore ? <ActivityIndicator color="#2B7A4B" /> : <></>
+          }
         />
       </View>
     </View>
