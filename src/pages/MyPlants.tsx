@@ -10,6 +10,7 @@ import waterDrop from "../assets/waterdrop.png";
 
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
+import { PlantCardSecondary } from "../components/PlantCardSecondary";
 
 export function MyPlants() {
   const [myPlants, setMyPlants] = useState<PlantProps[]>([]);
@@ -50,7 +51,9 @@ export function MyPlants() {
         <FlatList
           data={myPlants}
           keyExtractor={(item) => String(item.id)}
-          renderItem={({ item }) => <Text>Elemento</Text>}
+          renderItem={({ item }) => (
+            <PlantCardSecondary  data={item}/>
+          )}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ flex: 1 }}
         />
@@ -85,7 +88,6 @@ const styles = StyleSheet.create({
     flex: 1,
     color: colors.blue,
     paddingHorizontal: 20,
-    textAlign: 'justify',
   },
   plants: {
     flex: 1,

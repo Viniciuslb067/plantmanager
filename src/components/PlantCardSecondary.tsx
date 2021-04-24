@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontFamily: fonts.heading,
     fontSize: 17,
+    color: colors.heading,
   },
   details: {
     alignItems: "flex-end",
