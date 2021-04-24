@@ -20,7 +20,7 @@ export interface PlantProps {
 export interface StoragePlantProps {
   [id: string]: {
     data: PlantProps;
-    notificationId: string,
+    notificationId: string;
   };
 }
 
@@ -34,7 +34,9 @@ export async function savePlant(plant: PlantProps): Promise<void> {
     if (repeat_every === "week") {
       const interval = Math.trunc(7 / times);
       nextTime.setDate(now.getDate() + interval);
-    } 
+    } else {
+      nextTime.setDate(nextTime.getDate() + 1);
+    }
 
     const seconds = Math.abs(
       Math.ceil((now.getTime() - nextTime.getTime()) / 1000)
@@ -110,7 +112,9 @@ export async function removePlant(id: string): Promise<void> {
   const data = await AsyncStorage.getItem("@plantmanager:plants");
   const plants = data ? (JSON.parse(data) as StoragePlantProps) : {};
 
-  await Notifications.cancelScheduledNotificationAsync(plants[id].notificationId);
+  await Notifications.cancelScheduledNotificationAsync(
+    plants[id].notificationId
+  );
 
   delete plants[id];
 
